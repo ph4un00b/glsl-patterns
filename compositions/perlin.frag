@@ -16,7 +16,7 @@ precision mediump float;
       varying vec2 v_texcoord; 
       #endif
       
-      
+      #define PLATFORM_WEBGL
       /* Color palette */
       #define BLACK vec3(0.,0.,0.)
       #define WHITE vec3(1.,1.,1.)
@@ -671,20 +671,20 @@ precision mediump float;
         return test;
     }
 
-// #include "lygia/generative/voronoise.glsl"
+#include "lygia/generative/voronoise.glsl"
 
-//       float layers6(vec2 st) {
-//          float test = 0.2 * voronoise(st * 4.5 + u_time * 0.15, 1., 1.);
-//           // layer2
-//           test += 0.25 * voronoise(st * 9. + vec2(u_time, 0.0), 1., 1.);
-//         // // // //   // layer3
-//           test += 0.125 * voronoise(st * 18. + vec2(u_time, 0.0), 1., 1.);
-//         // // // //   // layer4
-//           test += 0.0625 * voronoise(st * 36. + vec2(u_time, 0.0), 1., 1.);
-//         // // // //   // layer5
-//           test += 0.0625 * voronoise(st * 72. + vec2(u_time, 0.0), 1., 1.);
-//         return test;
-//     }
+      float layers6(vec2 st) {
+         float test = 0.2 * voronoise(st * 4.5 + u_time * 0.15, 1., 1.);
+          // layer2
+          test += 0.25 * voronoise(st * 9. + vec2(u_time, 0.0), 1., 1.);
+        // // // //   // layer3
+          test += 0.125 * voronoise(st * 18. + vec2(u_time, 0.0), 1., 1.);
+        // // // //   // layer4
+          test += 0.0625 * voronoise(st * 36. + vec2(u_time, 0.0), 1., 1.);
+        // // // //   // layer5
+          test += 0.0625 * voronoise(st * 72. + vec2(u_time, 0.0), 1., 1.);
+        return test;
+    }
 
 #include "lygia/generative/worley.glsl"
 
@@ -742,44 +742,50 @@ void main(void){
     color = i.x == 1. && i.y == 1. ? cell : color;
     cell = paint(AZUR, ACQUA);
 
-    // lever = 0.512;
-    test = smoothstep(0.0, lever, layers1(st));
+        // lever = 0.512;
+    test = smoothstep(0.0, lever, layers4(st));
     cell = mix(c1,c2, test);
+
     color = i.x == 2. && i.y == 1. ? cell : color;
 
     cell = paint(AZUR, PURPLE);
-    // lever = 0.512;
-    test = smoothstep(0.0, lever, layers2(st));
+
+        // lever = 0.512;
+    test = smoothstep(0.0, lever, layers7(st));
     cell = mix(c1,c2, test);
     color = i.x == 3. && i.y == 1. ? cell : color;
 
     cell = paint(LIME, ORANGE);
-    // lever = 0.512;
-    test = smoothstep(0.0, lever, layers3(st));
+
+        // lever = 0.512;
+    test = smoothstep(0.0, lever, layers6(st));
     cell = mix(c1,c2, test);
     color = i.x == 1. && i.y == 2. ? cell : color;
 
     cell = paint(AZUR, BLUE);
-    // lever = 0.512;
-    test = smoothstep(0.0, lever, layers4(st));
+        // lever = 0.512;
+    test = smoothstep(0.0, lever, layers5(st));
     cell = mix(c1,c2, test);
+
     color = i.x == 2. && i.y == 2. ? cell : color;
 
     cell = paint(LIME, ACQUA);
-    // lever = 0.512;
-    test = smoothstep(0.0, lever, layers5(st));
+
+        // lever = 0.512;
+    test = smoothstep(0.0, lever, layers3(st));
     cell = mix(c1,c2, test);
     color = i.x == 3. && i.y == 2. ? cell : color;
 
     cell = paint(LIME, RED);
     // lever = 0.512;
-    // test = smoothstep(0.0, lever, layers6(st));
-    // cell = mix(c1,c2, test);
+    test = smoothstep(0.0, lever, layers2(st));
+    cell = mix(c1,c2, test);
     color = i.x == 1. && i.y == 3. ? cell : color;
 
     cell = paint(LIME, CYAN);
-    // lever = 0.512;
-    test = smoothstep(0.0, lever, layers7(st));
+
+        // lever = 0.512;
+    test = smoothstep(0.0, lever, layers1(st));
     cell = mix(c1,c2, test);
     color = i.x == 2. && i.y == 3. ? cell : color;
     cell = paint(RED, ACQUA );
